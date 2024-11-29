@@ -44,14 +44,16 @@ public class servidor {
 
         salida = new PrintWriter(socket.getOutputStream(), true);
 
-        String mensaje = entrada.readLine(); //recibir mensaje del client
-        while(mensaje != null){
+        String mensaje; //recibir mensaje del client
+        while((mensaje = entrada.readLine()) != null){
             System.out.println("Cliente: " + mensaje); //imprimir el mensaje del client
+            if(mensaje.equals("salir")){
+                System.out.println("Conexión cerrada por el cliente.");
+                break;
+            }
+
+            salida.println("Recibido."); //mandar un mensaje de conf
         }
-
-        salida.println("Recibido."); //mandar un mensaje de conf
     }
-
-
 
 }

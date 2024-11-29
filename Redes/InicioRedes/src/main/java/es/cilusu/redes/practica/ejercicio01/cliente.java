@@ -2,6 +2,7 @@ package es.cilusu.redes.practica.ejercicio01;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class cliente {
     static String host = "localhost";
@@ -20,13 +21,22 @@ public class cliente {
 
             isr = new InputStreamReader(socket.getInputStream());
             entrada = new BufferedReader(isr);
-
             salida = new PrintWriter(socket.getOutputStream(), true);
-            salida.println("¡Hola servidor!"); //enviar un mensaje
-            salida.println("Te envío varios mensajes....");
 
-            String respuesta = entrada.readLine(); //recoger el mensaje del server
-            System.out.println("Servidor: " + respuesta); //imprimir el mensaje
+            Scanner sc = new Scanner(System.in);
+            String mensaje;
+            while (true){
+                System.out.println("Ingrese mensaje: ");
+                mensaje = sc.nextLine();
+
+                salida.println(mensaje); //enviar un mensaje
+                if(mensaje.equals("salir")){
+                    socket.close();
+                    break;
+                }
+                String respuesta = entrada.readLine(); //recoger el mensaje del server
+                System.out.println("Servidor: " + respuesta); //imprimir el mensaje
+            }
 
             socket.close();
             System.out.println("Servidor desconectado.");
