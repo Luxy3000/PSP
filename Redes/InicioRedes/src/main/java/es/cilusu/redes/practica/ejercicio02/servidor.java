@@ -22,9 +22,15 @@ public class servidor {
 
             manejarCliente(cliente);
 
-            cerrarServidor();
+            //cerrarServidor();
         } catch (IOException e){
             e.printStackTrace();
+        } finally {
+            try{
+                cerrarServidor();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -47,15 +53,27 @@ public class servidor {
         entrada = new BufferedReader(leer);
         salida = new PrintWriter(cliente.getOutputStream(), true);
 
-        String ruta = entrada.readLine();
-        if (ruta != null) {
-            System.out.println("Ruta: " + ruta);
-            FileReader fr = new FileReader(ruta);
-            BufferedReader ler = new BufferedReader(fr);
-            String mensaje;
-            while ((mensaje = ler.readLine() ) != null) {
-                salida.println(mensaje);
+        String ruta;
+        while((ruta = entrada.readLine()) != null){
+            if("salir".equals(ruta)){
+                System.out.println("Cliente ha cerrado la conexión.");
+                break;
             }
+
+            System.out.println("Ruta recibida: " + ruta);
+            enviarArchivo(ruta);
         }
+    }
+
+    public static void enviarArchivo(String ruta) throws IOException {
+        FileReader fr = new FileReader(ruta);
+        BufferedReader ler = new BufferedReader(fr);
+        String mensaje;
+
+        while ((mensaje = ler.readLine() ) != null) {
+            salida.println(mensaje);
+        }
+
+        salida.println("EOF");
     }
 }
