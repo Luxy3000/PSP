@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Cliente {
     private static final String HOST = "localhost";
-    private static final int PUERTO = 12345;
+    private static final int PUERTO = 22222;
 
     public static void main(String[] args) {
         try(Socket cliente = new Socket(HOST, PUERTO);

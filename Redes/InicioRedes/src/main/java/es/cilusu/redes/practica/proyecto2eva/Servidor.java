@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Random;
 
 public class Servidor {
-    private static final int PUERTO = 12345;
+    private static final int PUERTO = 22222;
     private static final int MAX_JUGADORES = 5;
 
     public static void main(String[] args) {

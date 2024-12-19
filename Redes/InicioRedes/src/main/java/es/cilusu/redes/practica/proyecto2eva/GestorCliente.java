@@ -23,7 +23,7 @@ public class GestorCliente  implements Runnable{
     public void run() {
         try(BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
             PrintWriter salida = new PrintWriter(cliente.getOutputStream(), true)){
-            salida.println("Bienvenido Jugador " + jugadorId + ", tienes " + MAX_INTENTOS + " intentos para adivinar el número.");
+            salida.println("Bienvenido Jugador " + jugadorId + ", tienes " + MAX_INTENTOS + " intentos para adivinar el número comprendido entre 1 y 10.");
             int intentosRest = MAX_INTENTOS;
 
             while(intentosRest > 0 && !juego.isJuegoEnd()){
